@@ -1,0 +1,212 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+
+WindowManager:
+#sets up the different screens for the app and the default order that they run in
+    transition: NoTransition() #sets all transitions as 'NoTransition'
+    HomeScreen:
+    TimeDisplay:
+    AlarmDisplay:
+    Alarm:
+
+
+<HomeScreen>
+
+    FloatLayout:
+
+        Image:
+            id: red_button
+            source: "RedButton.png"
+            size_hint: (0.4,0.4)
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+
+        Button:
+            opacity: 0
+            size_hint: (0.28,0.4)
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            on_press:
+                root.on_press()
+            on_release:
+                root.on_release()
+                root.manager.current = "timedisplay"
+
+
+<TimeDisplay>
+    name: "timedisplay"
+
+    FloatLayout:
+
+        Image:
+            id: alarm
+            opacity: 0
+            source: ""
+            size_hint: (0.2, 0.2)
+            pos_hint: {"center_x": 0.9, "center_y": 0.2}
+
+        Label:
+            id: time
+            size_hint: (0.5, 0.5)
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            opacity: 1
+            text: ""
+            font_size: 100
+            color: (1,0,0,1) #sets the colour of the text (rgba)
+
+        Button:
+            opacity: 0
+            size_hint: (0.18, 0.2)
+            pos_hint: {"center_x": 0.9, "center_y": 0.2}
+            on_press:
+                root.on_press()
+            on_release:
+                root.on_release()
+                root.manager.current = "alarmdisplay"
+
+        Label:
+            id: alarm_label
+            text: "Alarm Off"
+            opacity: 0
+            color: ((100/255), (193/255), (247/255), 1)
+            pos_hint: {"center_x": 0.9, "center_y": 0.05}
+
+
+
+
+
+<AlarmDisplay>
+    name: "alarmdisplay"
+
+    Label:
+        id: alarm_time
+        size_hint: (0.5, 0.5)
+        pos_hint: {"center_x": 0.5, "center_y": 0.63}
+        opacity: 1
+        text: "12:00"
+        font_size: 130
+        color: (1,0,0,1) #sets the colour of the text (rgba)
+
+    Image:
+        id: up_left
+        source: "UpArrow.png"
+        size_hint: (0.15, 0.15)
+        pos_hint: {"center_x": 0.12, "center_y": 0.32}
+
+    Button:
+        opacity: 0
+        size_hint: (0.06, 0.15)
+        pos_hint: {"center_x": 0.12, "center_y": 0.32}
+        on_press:
+            root.up_left_button()
+
+    Image:
+        id: down_left
+        source: "DownArrow.png"
+        size_hint: (0.15, 0.15)
+        pos_hint: {"center_x": 0.12, "center_y": 0.12}
+
+    Button:
+        opacity: 0
+        size_hint: (0.06, 0.15)
+        pos_hint: {"center_x": 0.12, "center_y": 0.12}
+        on_press:
+            root.down_left_button()
+
+    Image:
+        id: up_right
+        source: "UpArrow.png"
+        size_hint: (0.15, 0.15)
+        pos_hint: {"center_x": 0.88, "center_y": 0.32}
+
+    Button:
+        opacity: 0
+        size_hint: (0.06, 0.15)
+        pos_hint: {"center_x": 0.88, "center_y": 0.32}
+        on_press:
+            root.up_right_button()
+
+
+    Image:
+        id: down_right
+        source: "DownArrow.png"
+        size_hint: (0.15, 0.15)
+        pos_hint: {"center_x": 0.88, "center_y": 0.12}
+
+    Button:
+        opacity: 0
+        size_hint: (0.06, 0.15)
+        pos_hint: {"center_x": 0.88, "center_y": 0.12}
+        on_press:
+            root.down_right_button()
+
+    Image:
+        id: alarm_set
+        source: "AlarmSetButton.png"
+        size_hint: (0.44,0.28)
+        pos_hint: {"center_x": 0.5, "center_y": 0.2}
+
+    Label:
+        text: "SET"
+        size_hint: (0.4,0.2)
+        pos_hint: {"center_x": 0.5, "center_y": 0.2}
+        font_size: 50
+
+    Button:
+        opacity: 0
+        size_hint: (0.4,0.2)
+        pos_hint: {"center_x": 0.5, "center_y": 0.2}
+        on_press:
+            root.on_press_set()
+        on_release:
+            root.on_release_set()
+            root.manager.current = "timedisplay"
+
+    Image:
+        id: alarm_off
+        source: "BlueButton.png"
+        size_hint: (0.3,0.2)
+        pos_hint: {"center_x": 0.88, "center_y": 0.84}
+
+    Label:
+        text: "    Turn \nAlarm Off"
+        size_hint: (0.3,0.2)
+        pos_hint: {"center_x": 0.88, "center_y": 0.85}
+        font_size: 15
+
+    Button:
+        opacity: 0
+        size_hint: (0.15,0.2)
+        pos_hint: {"center_x": 0.88, "center_y": 0.84}
+        on_press:
+            root.on_press_off()
+        on_release:
+            root.on_release_off()
+            root.manager.current = "timedisplay"
+
+
+
+
+<Alarm>
+    name: "alarmring"
+
+    FloatLayout:
+        Image:
+            id: Baldwin
+            opacity: 0
+            source: "RichBaldwin.png"
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (0.8,0.8)
+            allow_stretch: True
+
+        Button:
+            id: Baldwin_button
+            opacity: 0
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (0.25,0.6)
+            on_press:
+                root.on_press()
+
+
+
+
+
+
